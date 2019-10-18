@@ -25,9 +25,9 @@ function populateForm() {
 function handleSubmit(event) {
   event.preventDefault();
   var chosenItem = event.target.items.value;
-  // console.log('chosenitem: ' ,chosenItem);
+  console.log('chosenitem: ' ,chosenItem);
   var chosenQuantity = event.target.quantity.value;
-  // console.log ('quantity:' ,chosenQuantity);
+  console.log ('quantity:' ,chosenQuantity);
   // console.log(document.getElementById ('items'));
 
   // TODO: Prevent the page from reloading
@@ -47,11 +47,10 @@ function addSelectedItemToCart() {
  var selectedQuantity = event.target.quantity.value;
   for (var i = 0; i < Product.allProducts.length; i++) {
     if(Product.allProducts[i].name === name) {
-      cart.count ++;
+      cart.counter ++;
       // cart.saveToLocalStorage();
       return;
-    }
-    
+    } 
     // cart.saveToLocalStorage();
   }
   cart.addItem(selectedItem, selectedQuantity);
@@ -61,7 +60,21 @@ function addSelectedItemToCart() {
 }
 
 // TODO: Update the cart count in the header nav with the number of items in the Cart
-function updateCounter() {}
+
+function updateCounter() {
+  var getLocalData = localStorage.getItem('cartContents');
+  var parsedGetLocalData = JSON.parse(getLocalData);
+  
+  
+  var totalItems = 0;
+  for (var i = 0; i < cart.items.length; i++) {
+    totalItems += cart.items[i].quantity;
+  }
+  
+  console.log('total:' + totalItems);
+}
+
+
 
 // TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
